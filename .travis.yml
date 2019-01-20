@@ -12,8 +12,8 @@ jobs:
   include:
     - stage: build docker image
       script:
-      - docker build -t $REPO:$GITCOMMIT .
+      - docker build -t $REPO:git-$GITCOMMIT .
       - docker images
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push $REPO:$GITCOMMIT
+      - docker push $REPO:git-$GITCOMMIT
 
