@@ -12,6 +12,7 @@ jobs:
           command: |
             REPO=michaelvl/grafanalib
             GITCOMMIT=${CIRCLE_SHA1::7}
+            echo $CIRCLE_REPOSITORY_URL
             echo "Branch $CIRCLE_BRANCH"
             echo "Commit $GITCOMMIT"
             echo "Test $TESTENV"
