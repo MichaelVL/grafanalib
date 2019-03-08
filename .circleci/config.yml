@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build and push Docker image
+          command: |
+            REPO=michaelvl/grafanalib
+            GITCOMMIT=${CIRCLECI_SHA1::7}
+            docker build -t $REPO:git-$GITCOMMIT .
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push $REPO:git-$GITCOMMIT
