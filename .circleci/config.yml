@@ -11,7 +11,10 @@ jobs:
           name: Build and push Docker image
           command: |
             REPO=michaelvl/grafanalib
-            GITCOMMIT=${CIRCLECI_SHA1::7}
+            GITCOMMIT=${CIRCLE_SHA1::7}
+	    echo "Branch $CIRCLE_BRANCH"
+	    echo "Commit $GITCOMMIT"
+	    echo "Test $TESTENV"
             docker build -t $REPO:git-$GITCOMMIT .
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push $REPO:git-$GITCOMMIT
