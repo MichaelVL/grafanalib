@@ -5,18 +5,21 @@ jobs:
       - image: circleci/python:3.7.1
     environment:
       REPO=michaelvl/grafanalib
-      GITCOMMIT=${CIRCLE_SHA1::7}
-      DATETIME=$(date +%Y%m%d-%H%M)
     steps:
       - checkout
       - setup_remote_docker
+      - run:
+          name: Setup environment variables
+          command: |
+            echo 'GITCOMMIT=${CIRCLE_SHA1::7}' >> $BASH_ENV
+            echo 'DATETIME=$(date +%Y%m%d-%H%M)' >> $BASH_ENV
       - run:
           name: Build container image
           command: |
             echo $CIRCLE_REPOSITORY_URL
             echo "Branch $CIRCLE_BRANCH"
             echo "Commit $GITCOMMIT"
-            docker build -t $REPO:git-$GITCOMMIT .
+            docker build -t $REPO:git-$DATETIME-$GITCOMMIT .
       - run:
           name: Push container image
           command: |
