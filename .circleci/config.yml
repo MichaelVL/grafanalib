@@ -11,6 +11,7 @@ jobs:
       - run:
           name: Setup environment variables
           command: |
+            echo "REPO=$REPO" >> $BASH_ENV
             echo 'GITCOMMIT=${CIRCLE_SHA1::7}' >> $BASH_ENV
             GITCOMMIT=${CIRCLE_SHA1::7}
             NOW=$(date +%Y%m%d-%H%M)
@@ -22,8 +23,11 @@ jobs:
           name: Build container image
           command: |
             docker build -t $FULLNAME .
+            if [ "${CIRCLE_BRANCH}" == "master" ];
+              docker tag $FULLNAME $REPO:latest
+            fi
       - run:
           name: Push container image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push $FULLNAME
+            docker push $REPO
