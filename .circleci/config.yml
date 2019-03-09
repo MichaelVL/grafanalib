@@ -23,7 +23,7 @@ jobs:
           name: Build container image
           command: |
             docker build -t $FULLNAME .
-            if [ "${CIRCLE_BRANCH}" == "master" ];
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker tag $FULLNAME $REPO:latest
             fi
       - run:
