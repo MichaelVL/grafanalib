@@ -12,6 +12,7 @@ jobs:
           name: Setup environment variables
           command: |
             echo 'GITCOMMIT=${CIRCLE_SHA1::7}' >> $BASH_ENV
+            GITCOMMIT=${CIRCLE_SHA1::7}
             NOW=$(date +%Y%m%d-%H%M)
             FULLNAME="$REPO:git-$NOW-$GITCOMMIT"
             echo "FULLNAME=$FULLNAME" >> $BASH_ENV
