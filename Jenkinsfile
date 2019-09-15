@@ -24,7 +24,7 @@ pipeline {
                         script: 'date +%Y%m%d-%H%M',
                         returnStdout: true).trim()
                     env.NOW = NOW
-                    env.FULLNAME = "$REGISTRY:git-$NOW-$GIT_COMMIT"
+                    env.FULLNAME = "$REPOSITORY:git-$NOW-$GIT_COMMIT"
                 }
             }
         }
