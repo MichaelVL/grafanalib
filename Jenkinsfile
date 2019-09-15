@@ -2,7 +2,8 @@ pipeline {
     agent any
     environment {
         GITHUB_URL = 'https://github.com/MichaelVL/grafanalib-container'
-        REGISTRY = 'michaelvl/grafanalib'
+        REPOSITORY = 'michaelvl/grafanalib'
+        REGISTRY = 'https://index.docker.io/v1/'
         REGISTRY_CREDENTIALS_ID = 'DockerHub'
     }
     stages {
@@ -37,7 +38,7 @@ pipeline {
         stage('Push Image') {
             steps{
                 script {
-                    docker.withRegistry( '', REGISTRY_CREDENTIALS_ID ) {
+                    docker.withRegistry( env.REGISTRY, env.REGISTRY_CREDENTIALS_ID ) {
                         dockerImage.push()
                     }
                 }
