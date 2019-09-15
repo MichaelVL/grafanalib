@@ -11,7 +11,7 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: "$GITHUB_URL"]]])
                 script {
-                    env.GIT_COMMIT = sh (
+                    env.SHORT_GIT_COMMIT = sh (
                         script: 'git rev-parse --short HEAD',
                         returnStdout: true).trim()
                 }
@@ -24,7 +24,7 @@ pipeline {
                         script: 'date +%Y%m%d-%H%M',
                         returnStdout: true).trim()
                     env.NOW = NOW
-                    env.FULLNAME = "$env.REPOSITORY:git-$env.NOW-$env.GIT_COMMIT"
+                    env.FULLNAME = "$env.REPOSITORY:git-$env.NOW-$env.SHORT_GIT_COMMIT"
                 }
             }
         }
