@@ -24,14 +24,14 @@ pipeline {
                         script: 'date +%Y%m%d-%H%M',
                         returnStdout: true).trim()
                     env.NOW = NOW
-                    env.FULLNAME = "$REPOSITORY:git-$NOW-$GIT_COMMIT"
+                    env.FULLNAME = "$env.REPOSITORY:git-$env.NOW-$env.GIT_COMMIT"
                 }
             }
         }
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build "$FULLNAME"
+                    dockerImage = docker.build "$env.FULLNAME"
                 }
             }
         }
