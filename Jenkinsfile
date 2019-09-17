@@ -6,6 +6,10 @@ pipeline {
         REGISTRY = 'https://index.docker.io/v1/'
         REGISTRY_CREDENTIALS_ID = 'DockerHub'
     }
+    options {
+        skipDefaultCheckout()
+        timestamps()
+    }
     stages {
         stage('Checkout') {
             steps {
