@@ -1,3 +1,3 @@
-FROM python:3.7.0-slim
+FROM python:3.9.12
 
 RUN pip install grafanalib
