@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - feature/**
+    paths:
+      - Dockerfile
 
 permissions:
   contents: read
