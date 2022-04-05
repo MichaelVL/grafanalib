@@ -3,7 +3,7 @@ name: Build and push container
 on:
   push:
     branches:
-      - main
+      - master
       - feature/**
     paths:
       - Dockerfile
